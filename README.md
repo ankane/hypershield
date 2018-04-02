@@ -6,14 +6,16 @@ Great for business intelligence tools like [Blazer](https://github.com/ankane/bl
 
 ## How It Works
 
-Hypershield creates *shielded views* (in the `hypershield` schema by default) that hide sensitive tables and columns. By default, it hides columns with:
+Hypershield creates *shielded views* (in the `hypershield` schema by default) that hide sensitive tables and columns. The advantage of this approach over column-level privileges is you can use `SELECT *`.
+
+By default, it hides columns with:
 
 - `encrypted`
 - `password`
 - `token`
 - `secret`
 
-Give database users access to these views instead of the original tables. You can set the `search_path` so queries don’t need to be schema-qualified. The advantage of this approach over column-level privileges is you can use `SELECT *`.
+Give database users access to these views instead of the original tables.
 
 ## Database Setup
 
