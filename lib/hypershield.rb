@@ -1,7 +1,7 @@
 require "active_support"
 
 require "hypershield/migration"
-require "hypershield/railtie" if defined?(Rails)
+require "hypershield/engine" if defined?(Rails)
 require "hypershield/version"
 
 module Hypershield
