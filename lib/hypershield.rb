@@ -1,8 +1,12 @@
+# dependencies
 require "active_support"
 
+# modules
 require "hypershield/migration"
-require "hypershield/engine" if defined?(Rails)
 require "hypershield/version"
+
+# integrations
+require "hypershield/engine" if defined?(Rails)
 
 module Hypershield
   class << self
