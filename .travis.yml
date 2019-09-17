@@ -4,6 +4,9 @@ rvm: 2.6.3
 services:
   - postgresql
   - mysql
+env:
+  - ADAPTER=postgresql
+  - ADAPTER=mysql2
 script: bundle exec rake test
 before_install:
   - mysqladmin create hypershield_test
