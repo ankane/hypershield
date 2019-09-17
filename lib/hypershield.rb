@@ -118,7 +118,7 @@ module Hypershield
           table_schema = #{schema}
       SQL
 
-      select_all(query)
+      select_all(query.squish)
         .map { |c| c.transform_keys(&:downcase) }
         .group_by { |c| c["table_name"] }
         .map { |t, cs| [t, cs.sort_by { |c| c["ordinal_position"].to_i }.map { |c| c["column_name"] }] }
