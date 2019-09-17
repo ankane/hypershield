@@ -102,6 +102,12 @@ Hypershield.schemas = {
 }
 ```
 
+Show Hypershield SQL commands [master]
+
+```ruby
+Hypershield.quiet = false
+```
+
 ## TODO
 
 - Create CLI
