@@ -102,7 +102,7 @@ Hypershield.schemas = {
 }
 ```
 
-Show Hypershield SQL commands [master]
+Log Hypershield SQL commands [master]
 
 ```ruby
 Hypershield.log_sql = true
