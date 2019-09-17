@@ -4,6 +4,8 @@
 
 Great for business intelligence tools like [Blazer](https://github.com/ankane/blazer)
 
+[![Build Status](https://travis-ci.org/ankane/hypershield.svg?branch=master)](https://travis-ci.org/ankane/hypershield)
+
 ## How It Works
 
 Hypershield creates *shielded views* (in the `hypershield` schema by default) that hide sensitive tables and columns. The advantage of this approach over column-level privileges is you can use `SELECT *`.

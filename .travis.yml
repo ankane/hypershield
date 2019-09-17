@@ -1,0 +1,14 @@
+dist: xenial
+language: ruby
+rvm: 2.6.3
+services:
+  - postgresql
+  - mysql
+script: bundle exec rake test
+before_install:
+  - mysqladmin create hypershield_test
+  - createdb hypershield_test
+notifications:
+  email:
+    on_success: never
+    on_failure: change
