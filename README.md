@@ -105,7 +105,7 @@ Hypershield.schemas = {
 Show Hypershield SQL commands [master]
 
 ```ruby
-Hypershield.quiet = false
+Hypershield.log_sql = true
 ```
 
 ## TODO

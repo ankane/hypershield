@@ -10,7 +10,7 @@ require "hypershield/engine" if defined?(Rails)
 
 module Hypershield
   class << self
-    attr_accessor :schemas, :quiet
+    attr_accessor :schemas, :log_sql
   end
   self.schemas = {
     hypershield: {
@@ -18,7 +18,7 @@ module Hypershield
       show: []
     }
   }
-  self.quiet = true
+  self.log_sql = false
 
   class << self
     def drop_view(view)
@@ -72,7 +72,7 @@ module Hypershield
     private
 
     def quiet_logging
-      if quiet && ActiveRecord::Base.logger
+      if ActiveRecord::Base.logger && !log_sql
         previous_level = ActiveRecord::Base.logger.level
         begin
           ActiveRecord::Base.logger.level = Logger::INFO
