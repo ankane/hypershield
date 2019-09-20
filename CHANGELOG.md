@@ -1,4 +1,4 @@
-## 0.1.1 [unreleased]
+## 0.1.1
 
 - Fixed error with MySQL 8
 - Added `log_sql` option
