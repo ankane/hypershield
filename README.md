@@ -93,6 +93,8 @@ When you run database migrations, the schema is automatically refreshed.
 
 ## Configuration
 
+Create `config/initializers/hypershield.rb` for configuration.
+
 Specify the schema to use and columns to show and hide
 
 ```ruby
