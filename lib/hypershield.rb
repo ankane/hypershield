@@ -38,11 +38,16 @@ module Hypershield
         schemas.each do |schema, config|
           hide = config[:hide].to_a
           show = config[:show].to_a
+          blacklist = config[:blacklist].to_a
 
           tables.sort_by { |k, _| k }.each do |table, columns|
             next if table == "pg_stat_statements"
 
+            # drop tables, including the blacklist
             statements << "DROP VIEW IF EXISTS #{quote_ident(schema)}.#{quote_ident(table)} CASCADE"
+
+            # skip blacklisted tables
+            next if blacklist.any? { |b| table == b }
 
             columns.reject! do |column|
               hide.any? { |m| "#{table}.#{column}".include?(m) } &&
