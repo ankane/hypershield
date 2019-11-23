@@ -95,11 +95,13 @@ When you run database migrations, the schema is automatically refreshed.
 
 Create `config/initializers/hypershield.rb` for configuration.
 
-Specify the schema to use and columns to show and hide
+Specify the schema to use and columns to show and hide. Add tables you want
+hidden to blacklist.
 
 ```ruby
 Hypershield.schemas = {
   hypershield: {
+    blacklist: %w(categories)
     hide: %w(encrypted password token secret),
     show: %w(ahoy_visits.visit_token)
   }
