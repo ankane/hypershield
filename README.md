@@ -93,7 +93,7 @@ When you run database migrations, the schema is automatically refreshed.
 
 ## Configuration
 
-Create `config/initializers/hypershield.rb` for configuration
+Create `config/initializers/hypershield.rb` for configuration with
 
 ```ruby
 if Rails.env.production?
