@@ -98,15 +98,17 @@ Create `config/initializers/hypershield.rb` for configuration.
 Specify the schema to use and columns to show and hide
 
 ```ruby
-Hypershield.schemas = {
-  hypershield: {
-    hide: %w(encrypted password token secret),
-    show: %w(ahoy_visits.visit_token)
+if Rails.env.production?
+  Hypershield.schemas = {
+    hypershield: {
+      hide: %w(encrypted password token secret),
+      show: %w(ahoy_visits.visit_token)
+    }
   }
-}
+end
 ```
 
-Log Hypershield SQL statements [master]
+Log Hypershield SQL statements
 
 ```ruby
 Hypershield.log_sql = true
