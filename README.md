@@ -93,19 +93,23 @@ When you run database migrations, the schema is automatically refreshed.
 
 ## Configuration
 
-Create `config/initializers/hypershield.rb` for configuration.
+Create `config/initializers/hypershield.rb` for configuration
+
+```ruby
+if Rails.env.production?
+  # configuration goes here
+end
+```
 
 Specify the schema to use and columns to show and hide
 
 ```ruby
-if Rails.env.production?
-  Hypershield.schemas = {
-    hypershield: {
-      hide: %w(encrypted password token secret),
-      show: %w(ahoy_visits.visit_token)
-    }
+Hypershield.schemas = {
+  hypershield: {
+    hide: %w(encrypted password token secret),
+    show: %w(ahoy_visits.visit_token)
   }
-end
+}
 ```
 
 Log Hypershield SQL statements
