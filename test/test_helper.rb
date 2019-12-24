@@ -12,8 +12,8 @@ ActiveRecord::Base.logger = logger
 # create test database if not exists
 adapter = ENV["ADAPTER"] || "postgresql"
 database = adapter == "postgresql" ? "postgres" : "mysql"
-user = adapter == "mysql2" ? "root" : nil
-password = adapter == "mysql2" ? "root" : nil
+user = ENV["DB_USER"]
+password = ENV["DB_PASSWORD"]
 
 ActiveRecord::Base.establish_connection adapter: adapter, database: database, username: user, password: password
 ActiveRecord::Base.connection.execute "DROP DATABASE IF EXISTS hypershield_test"
