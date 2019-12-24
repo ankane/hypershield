@@ -20,6 +20,10 @@ module Hypershield
   }
   self.log_sql = false
 
+  LARGE_NUMBER_OF_VIEWS = 200
+  SLEEP_TIME = 0.5
+  SLEEP_BETWEEN = 20
+
   class << self
     def drop_view(view)
       schemas.each do |schema, _|
@@ -55,7 +59,17 @@ module Hypershield
           end
         end
 
-        if statements.any?
+        # Writing too many views at once causes IOPS spike on large databases.
+        # Trade-off: no more transactional view creation. If a view fails to create, the database
+        # will be left with missing views; this will have to be re-ran.
+        if statements.size >= LARGE_NUMBER_OF_VIEWS
+          statements.each_with_index do |statement, idx|
+            if idx % SLEEP_BETWEEN == 0
+              sleep(SLEEP_TIME)
+            end
+            execute(statement)
+          end
+        elsif statements.any?
           connection.transaction do
             if mysql?
               statements.each do |statement|

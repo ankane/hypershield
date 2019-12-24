@@ -9,9 +9,18 @@ logger = ActiveSupport::Logger.new(STDOUT)
 # for debugging
 ActiveRecord::Base.logger = logger
 
-# migrations
+# create test database if not exists
 adapter = ENV["ADAPTER"] || "postgresql"
-ActiveRecord::Base.establish_connection adapter: adapter, database: "hypershield_test"
+database = adapter == "postgresql" ? "postgres" : "mysql"
+user = adapter == "mysql2" ? "root" : nil
+password = adapter == "mysql2" ? "root" : nil
+
+ActiveRecord::Base.establish_connection adapter: adapter, database: database, username: user, password: password
+ActiveRecord::Base.connection.execute "DROP DATABASE IF EXISTS hypershield_test"
+ActiveRecord::Base.connection.execute "CREATE DATABASE hypershield_test"
+
+# migrations
+ActiveRecord::Base.establish_connection adapter: adapter, database: "hypershield_test", username: user, password: password
 
 ActiveRecord::Base.connection.execute("DROP VIEW IF EXISTS hypershield.users")
 ActiveRecord::Base.connection.execute("DROP SCHEMA IF EXISTS hypershield")
