@@ -57,12 +57,8 @@ module Hypershield
 
         if statements.any?
           connection.transaction do
-            if mysql?
-              statements.each do |statement|
-                execute(statement)
-              end
-            else
-              execute(statements.join(";\n"))
+            statements.each do |statement|
+              execute(statement)
             end
           end
         end
