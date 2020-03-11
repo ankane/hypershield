@@ -39,15 +39,22 @@ module Hypershield
           hide = config[:hide].to_a
           show = config[:show].to_a
 
+          hypershield_tables = tables(schema)
+
           tables.sort_by { |k, _| k }.each do |table, columns|
             next if table == "pg_stat_statements"
-
-            statements << "DROP VIEW IF EXISTS #{quote_ident(schema)}.#{quote_ident(table)} CASCADE"
 
             columns.reject! do |column|
               hide.any? { |m| "#{table}.#{column}".include?(m) } &&
                 !show.any? { |m| "#{table}.#{column}".include?(m) }
             end
+
+            # if the hypershield view has the same columns, assume it doesn't need updated
+            # this may not necessarily be true if someone manually updates the view
+            # we could check the view definition, but this is harder as the database normalizes it
+            next if hypershield_tables[table] == columns
+
+            statements << "DROP VIEW IF EXISTS #{quote_ident(schema)}.#{quote_ident(table)} CASCADE"
 
             if columns.any?
               statements << "CREATE VIEW #{quote_ident(schema)}.#{quote_ident(table)} AS SELECT #{columns.map { |c| quote_ident(c) }.join(", ")} FROM #{quote_ident(table)}"
@@ -97,14 +104,17 @@ module Hypershield
       adapter_name =~ /mysql/i
     end
 
-    def tables
-      # TODO make schema configurable
-      schema =
-        if mysql?
-          "database()"
-        else
-          "'public'"
-        end
+    def tables(schema = nil)
+      if schema
+        schema = quote(schema)
+      else
+        schema =
+          if mysql?
+            "database()"
+          else
+            "'public'"
+          end
+      end
 
       query = <<-SQL
         SELECT
@@ -131,6 +141,10 @@ module Hypershield
 
     def execute(sql)
       connection.execute(sql)
+    end
+
+    def quote(literal)
+      connection.quote(literal)
     end
 
     def quote_ident(ident)

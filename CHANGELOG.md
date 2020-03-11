@@ -1,3 +1,7 @@
+## 0.2.0 (unreleased)
+
+- Only update views that have changed
+
 ## 0.1.1 (2019-09-20)
 
 - Fixed error with MySQL 8
