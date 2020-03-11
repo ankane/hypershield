@@ -62,16 +62,12 @@ module Hypershield
           end
         end
 
-        if statements.any?
-          connection.transaction do
-            if mysql?
-              statements.each do |statement|
-                execute(statement)
-              end
-            else
-              execute(statements.join(";\n"))
-            end
-          end
+        # originally this was performed in a transaction
+        # however, this appears to cause issues in certain situations - see #5 and #6
+        # this shouldn't be a huge issue now that we only update specific views
+        # we already drop views outside of the transaction when migrations are run
+        statements.each do |statement|
+          execute(statement)
         end
       end
     end
