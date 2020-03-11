@@ -4,6 +4,12 @@ namespace :hypershield do
     Hypershield.refresh
     $stderr.puts "[hypershield] Success!"
   end
+
+  namespace :refresh do
+    task dry_run: :environment do
+      Hypershield.refresh(dry_run: true)
+    end
+  end
 end
 
 Rake::Task["db:migrate"].enhance do

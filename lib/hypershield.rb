@@ -27,7 +27,7 @@ module Hypershield
       end
     end
 
-    def refresh
+    def refresh(dry_run: false)
       if adapter_name =~ /sqlite/i
         raise "Adapter not supported: #{adapter_name}"
       end
@@ -62,12 +62,16 @@ module Hypershield
           end
         end
 
-        # originally this was performed in a transaction
-        # however, this appears to cause issues in certain situations - see #5 and #6
-        # this shouldn't be a huge issue now that we only update specific views
-        # we already drop views outside of the transaction when migrations are run
-        statements.each do |statement|
-          execute(statement)
+        if dry_run
+          puts statements.map { |v| "#{v};" }.join("\n")
+        else
+          # originally this was performed in a transaction
+          # however, this appears to cause issues in certain situations - see #5 and #6
+          # this shouldn't be a huge issue now that we only update specific views
+          # we already drop views outside of the transaction when migrations are run
+          statements.each do |statement|
+            execute(statement)
+          end
         end
       end
     end

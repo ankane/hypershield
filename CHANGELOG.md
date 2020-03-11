@@ -1,6 +1,7 @@
 ## 0.2.0 (unreleased)
 
 - Only update views that have changed
+- Added `hypershield:refresh:dry_run` rake task
 
 ## 0.1.1 (2019-09-20)
 
