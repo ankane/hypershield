@@ -5,5 +5,8 @@ class HypershieldTest < Minitest::Test
     Hypershield.refresh(dry_run: true)
     assert Hypershield.refresh
     assert Hypershield.refresh
+
+    result = ActiveRecord::Base.connection.select_all("SELECT * FROM hypershield.users")
+    assert_equal ["id", "name"], result.columns
   end
 end
