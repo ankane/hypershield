@@ -148,4 +148,12 @@ To get started with development:
 git clone https://github.com/ankane/hypershield.git
 cd hypershield
 bundle install
+
+# Postgres
+createdb hypershield_test
+bundle exec rake test
+
+# MySQL
+mysqladmin create hypershield_test
+ADAPTER=mysql2 bundle exec rake test
 ```
