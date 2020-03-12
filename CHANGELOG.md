@@ -3,6 +3,7 @@
 - Only update views that have changed
 - Added `hypershield:refresh:dry_run` rake task
 - Added `enabled` option
+- Added generator
 
 ## 0.1.1 (2019-09-20)
 
