@@ -10,15 +10,16 @@ require "hypershield/engine" if defined?(Rails)
 
 module Hypershield
   class << self
-    attr_accessor :schemas, :log_sql
+    attr_accessor :enabled, :log_sql, :schemas
   end
+  self.enabled = true
+  self.log_sql = false
   self.schemas = {
     hypershield: {
       hide: %w(encrypted password token secret),
       show: []
     }
   }
-  self.log_sql = false
 
   class << self
     def drop_view(view)
