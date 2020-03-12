@@ -64,7 +64,9 @@ module Hypershield
         end
 
         if dry_run
-          puts statements.map { |v| "#{v};" }.join("\n")
+          if statements.any?
+            puts statements.map { |v| "#{v};" }.join("\n")
+          end
         else
           # originally this was performed in a transaction
           # however, this appears to cause issues in certain situations - see #5 and #6
