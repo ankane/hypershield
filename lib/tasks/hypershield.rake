@@ -1,5 +1,5 @@
 namespace :hypershield do
-  desc "Refresh Hypershield schemas"
+  desc "Refresh Hypershield views"
   task refresh: :environment do
     abort "Hypershield is not enabled in this environment. Do a dry run with: rake hypershield:refresh:dry_run" unless Hypershield.enabled
 
@@ -9,7 +9,7 @@ namespace :hypershield do
   end
 
   namespace :refresh do
-    desc "Print Hypershield refresh statements"
+    desc "Print Hypershield SQL statements"
     task dry_run: :environment do
       Hypershield.refresh(dry_run: true)
     end
