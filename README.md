@@ -19,6 +19,39 @@ By default, it hides columns with:
 
 Give database users access to these views instead of the original tables.
 
+## Installation
+
+Add this line to your application’s Gemfile:
+
+```ruby
+gem 'hypershield'
+```
+
+And run:
+
+```sh
+rails generate hypershield:install
+```
+
+Hypershield is disabled in non-production environments by default. You can do a dry run with:
+
+```sh
+rake hypershield:refresh:dry_run
+```
+
+Next, set up your production database.
+
+- [Postgres](#postgres)
+- [MySQL](#mysql)
+
+When that’s done, deploy to production and run:
+
+```sh
+rails db:migrate
+```
+
+The schema will automatically refresh.
+
 ## Database Setup
 
 ### Postgres
@@ -69,45 +102,17 @@ And connect as the user and make sure there’s no access the original tables
 SELECT * FROM mydb.users LIMIT 1;
 ```
 
-## Installation
-
-Add this line to your application’s Gemfile:
-
-```ruby
-gem 'hypershield', group: :production
-```
-
-Refresh the schema
-
-```sh
-rake hypershield:refresh
-```
-
-And query away on your shielded views
-
-```sql
-SELECT * FROM users LIMIT 1;
-```
-
-When you run database migrations, the schema is automatically refreshed.
-
 ## Configuration
 
-Create `config/initializers/hypershield.rb` for configuration with
-
-```ruby
-if Rails.env.production?
-  # configuration goes here
-end
-```
+Set configuration in `config/initializers/hypershield.rb`.
 
 Specify the schema to use and columns to show and hide
 
 ```ruby
 Hypershield.schemas = {
   hypershield: {
-    hide: %w(encrypted password token secret),
-    show: %w(ahoy_visits.visit_token)
+    hide: ["encrypted", "password", "token", "secret"],
+    show: ["ahoy_visits.visitor_token", "ahoy_visits.visit_token"]
   }
 }
 ```
@@ -118,9 +123,11 @@ Log Hypershield SQL statements
 Hypershield.log_sql = true
 ```
 
-## TODO
+Enable or disable Hypershield in an environment
 
-- Create CLI
+```ruby
+Hypershield.enabled = Rails.env.production?
+```
 
 ## History
 

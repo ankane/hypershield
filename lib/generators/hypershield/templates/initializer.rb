@@ -1,5 +1,5 @@
 # Specify which environments to use Hypershield
-Hypershield.enabled = !Rails.env.development? && !Rails.env.test?
+Hypershield.enabled = Rails.env.production?
 
 # Specify the schema to use and columns to show and hide
 Hypershield.schemas = {
