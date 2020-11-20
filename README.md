@@ -4,7 +4,7 @@
 
 Great for business intelligence tools like [Blazer](https://github.com/ankane/blazer)
 
-[![Build Status](https://travis-ci.org/ankane/hypershield.svg?branch=master)](https://travis-ci.org/ankane/hypershield)
+[![Build Status](https://github.com/ankane/hypershield/workflows/build/badge.svg?branch=master)](https://github.com/ankane/hypershield/actions)
 
 ## How It Works
 

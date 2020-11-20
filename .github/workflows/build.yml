@@ -1,0 +1,27 @@
+name: build
+on: [push, pull_request]
+jobs:
+  build:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        adapter: [postgresql, mysql2]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7
+        bundler-cache: true
+    - if: ${{ matrix.adapter == 'postgresql' }}
+      uses: ankane/setup-postgres@v1
+    - if: ${{ matrix.adapter == 'postgresql' }}
+      run: createdb hypershield_test
+    - if: ${{ matrix.adapter == 'mysql2' }}
+      uses: ankane/setup-mysql@v1
+    - if: ${{ matrix.adapter == 'mysql2' }}
+      run: mysqladmin create hypershield_test
+    - run: bundle exec rake test
+      env:
+        ADAPTER: ${{ matrix.adapter }}
