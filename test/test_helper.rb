@@ -4,10 +4,9 @@ require "minitest/autorun"
 require "minitest/pride"
 require "active_record"
 
-logger = ActiveSupport::Logger.new(STDOUT)
-
-# for debugging
+logger = ActiveSupport::Logger.new(ENV["VERBOSE"] ? STDOUT : nil)
 ActiveRecord::Base.logger = logger
+ActiveRecord::Migration.verbose = ENV["VERBOSE"]
 
 # migrations
 adapter = ENV["ADAPTER"] || "postgresql"
