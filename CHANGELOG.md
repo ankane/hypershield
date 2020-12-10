@@ -1,3 +1,7 @@
+## 0.2.1 (unreleased)
+
+- Fixed warning with Ruby 2.7
+
 ## 0.2.0 (2020-03-12)
 
 - Only update views that have changed
