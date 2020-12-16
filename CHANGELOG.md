@@ -1,5 +1,6 @@
 ## 0.2.1 (2020-12-16)
 
+- Added support for Ruby 3
 - Fixed warning with Ruby 2.7
 
 ## 0.2.0 (2020-03-12)
