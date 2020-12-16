@@ -1,4 +1,4 @@
-## 0.2.1 (unreleased)
+## 0.2.1 (2020-12-16)
 
 - Fixed warning with Ruby 2.7
 
