@@ -7,12 +7,26 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        adapter: [postgresql, mysql2]
+        include:
+        - ruby: 2.7
+          gemfile: Gemfile
+          adapter: postgresql
+        - ruby: 2.7
+          gemfile: Gemfile
+          adapter: mysql2
+        - ruby: 2.6
+          gemfile: gemfiles/activerecord60.gemfile
+          adapter: postgresql
+        - ruby: 2.5
+          gemfile: gemfiles/activerecord52.gemfile
+          adapter: postgresql
+    env:
+      BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     steps:
     - uses: actions/checkout@v2
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.7
+        ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
     - if: ${{ matrix.adapter == 'postgresql' }}
       uses: ankane/setup-postgres@v1
