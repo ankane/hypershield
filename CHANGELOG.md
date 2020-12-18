@@ -1,3 +1,7 @@
+## 0.2.2 (unreleased)
+
+- Fixed `wrong number of arguments` error
+
 ## 0.2.1 (2020-12-16)
 
 - Added support for Ruby 3
