@@ -1,4 +1,4 @@
-## 0.2.2 (unreleased)
+## 0.2.2 (2020-12-17)
 
 - Fixed `wrong number of arguments` error
 
