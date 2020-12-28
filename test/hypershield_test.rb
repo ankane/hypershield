@@ -2,7 +2,9 @@ require_relative "test_helper"
 
 class HypershieldTest < Minitest::Test
   def test_works
-    Hypershield.refresh(dry_run: true)
+    assert_output(/CREATE VIEW/) do
+      Hypershield.refresh(dry_run: true)
+    end
     assert Hypershield.refresh
     assert Hypershield.refresh
 
