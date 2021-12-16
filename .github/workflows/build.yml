@@ -11,11 +11,11 @@ jobs:
           gemfile: Gemfile
           adapter: postgresql
         - ruby: 3.0
-          gemfile: gemfiles/activerecord70.gemfile
-          adapter: postgresql
-        - ruby: 2.7
           gemfile: Gemfile
           adapter: mysql2
+        - ruby: 2.7
+          gemfile: gemfiles/activerecord61.gemfile
+          adapter: postgresql
         - ruby: 2.6
           gemfile: gemfiles/activerecord60.gemfile
           adapter: postgresql
