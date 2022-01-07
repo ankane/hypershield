@@ -7,10 +7,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - ruby: 3.0
+        - ruby: 3.1
           gemfile: Gemfile
           adapter: postgresql
-        - ruby: 3.0
+        - ruby: "3.0"
           gemfile: Gemfile
           adapter: mysql2
         - ruby: 2.7
