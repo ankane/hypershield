@@ -24,7 +24,7 @@ Give database users access to these views instead of the original tables.
 Add this line to your application’s Gemfile:
 
 ```ruby
-gem 'hypershield'
+gem "hypershield"
 ```
 
 And run:
