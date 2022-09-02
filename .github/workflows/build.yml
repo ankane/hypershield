@@ -9,16 +9,10 @@ jobs:
         include:
         - ruby: 3.1
           gemfile: Gemfile
-          adapter: postgresql
-        - ruby: 3.1
-          gemfile: Gemfile
-          adapter: mysql2
         - ruby: "3.0"
           gemfile: gemfiles/activerecord61.gemfile
-          adapter: postgresql
         - ruby: 2.7
           gemfile: gemfiles/activerecord60.gemfile
-          adapter: postgresql
     env:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     steps:
@@ -27,14 +21,13 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
-    - if: ${{ matrix.adapter == 'postgresql' }}
-      uses: ankane/setup-postgres@v1
-      with:
-        database: hypershield_test
-    - if: ${{ matrix.adapter == 'mysql2' }}
-      uses: ankane/setup-mysql@v1
+
+    - uses: ankane/setup-postgres@v1
       with:
         database: hypershield_test
     - run: bundle exec rake test
-      env:
-        ADAPTER: ${{ matrix.adapter }}
+
+    - uses: ankane/setup-mysql@v1
+      with:
+        database: hypershield_test
+    - run: ADAPTER=mysql2 bundle exec rake test
