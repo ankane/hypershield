@@ -1,3 +1,7 @@
+## 0.3.0 (unreleased)
+
+- Dropped support for Ruby < 2.7 and Rails < 6
+
 ## 0.2.2 (2020-12-17)
 
 - Fixed `wrong number of arguments` error

@@ -10,17 +10,14 @@ jobs:
         - ruby: 3.1
           gemfile: Gemfile
           adapter: postgresql
-        - ruby: "3.0"
+        - ruby: 3.1
           gemfile: Gemfile
           adapter: mysql2
-        - ruby: 2.7
+        - ruby: "3.0"
           gemfile: gemfiles/activerecord61.gemfile
           adapter: postgresql
-        - ruby: 2.6
+        - ruby: 2.7
           gemfile: gemfiles/activerecord60.gemfile
-          adapter: postgresql
-        - ruby: 2.5
-          gemfile: gemfiles/activerecord52.gemfile
           adapter: postgresql
     env:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
