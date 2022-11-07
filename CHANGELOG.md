@@ -1,3 +1,7 @@
+## 0.3.1 (unreleased)
+
+- Fixed dropping views for `change_table`, `drop_join_table`, `remove_belongs_to`, and `remove_reference`
+
 ## 0.3.0 (2022-10-09)
 
 - Dropped support for Ruby < 2.7 and Rails < 6
