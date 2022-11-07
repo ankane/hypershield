@@ -1,4 +1,4 @@
-## 0.3.1 (unreleased)
+## 0.3.1 (2022-11-06)
 
 - Fixed dropping views for `change_table`, `drop_join_table`, `remove_belongs_to`, and `remove_reference`
 
