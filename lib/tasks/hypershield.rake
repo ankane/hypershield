@@ -23,3 +23,7 @@ end
 Rake::Task["db:rollback"].enhance do
   Rake::Task["hypershield:refresh"].invoke if Hypershield.enabled
 end
+
+Rake::Task["db:prepare"].enhance do
+  Rake::Task["hypershield:refresh"].invoke if Hypershield.enabled
+end
