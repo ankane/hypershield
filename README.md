@@ -10,7 +10,7 @@ Great for business intelligence tools like [Blazer](https://github.com/ankane/bl
 
 Hypershield creates *shielded views* (in the `hypershield` schema by default) that hide sensitive tables and columns. The advantage of this approach over column-level privileges is you can use `SELECT *`.
 
-By default, it hides columns with:
+By default, it hides tables and columns containing:
 
 - `encrypted`
 - `password`
@@ -106,7 +106,7 @@ SELECT * FROM mydb.users LIMIT 1;
 
 Set configuration in `config/initializers/hypershield.rb`.
 
-Specify the schema to use and columns to show and hide
+Specify the schema to use and tables/columns to show and hide
 
 ```ruby
 Hypershield.schemas = {
@@ -116,6 +116,10 @@ Hypershield.schemas = {
   }
 }
 ```
+
+For example, given a database with two tables: `users(id, name, encrypted_password)`
+and `user_encrypted_blobs(id, user_id, blob)`; setting `hide: ["encrypted"]` will hide the
+users.encrypted_password column and the entire user_encrypted_blobs table.
 
 Log Hypershield SQL statements
 
