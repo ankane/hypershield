@@ -29,7 +29,7 @@ module Hypershield
     end
 
     def refresh(dry_run: false)
-      if adapter_name =~ /sqlite/i
+      if adapter_name.match?(/sqlite/i)
         raise "Adapter not supported: #{adapter_name}"
       end
 
@@ -104,7 +104,7 @@ module Hypershield
     end
 
     def mysql?
-      adapter_name =~ /mysql/i
+      adapter_name.match?(/mysql/i)
     end
 
     def tables(schema = nil)
