@@ -1,6 +1,6 @@
 module Hypershield
   module Migration
-    def method_missing(method, *args)
+    def method_missing(method, *args, **options)
       if [
         :change_column, :change_table, :drop_join_table, :drop_table,
         :remove_belongs_to, :remove_column, :remove_columns,
@@ -11,6 +11,5 @@ module Hypershield
 
       super
     end
-    ruby2_keywords(:method_missing) if respond_to?(:ruby2_keywords, true)
   end
 end
