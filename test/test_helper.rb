@@ -10,7 +10,9 @@ ActiveRecord::Migration.verbose = ENV["VERBOSE"]
 
 # migrations
 adapter = ENV["ADAPTER"] || "postgresql"
-ActiveRecord::Base.establish_connection adapter: adapter, database: "hypershield_test"
+options = {}
+options[:host] = "127.0.0.1" if adapter == "trilogy"
+ActiveRecord::Base.establish_connection adapter: adapter, database: "hypershield_test", **options
 
 if adapter == "postgresql"
   ActiveRecord::Base.connection.execute("DROP SCHEMA IF EXISTS hypershield CASCADE")
