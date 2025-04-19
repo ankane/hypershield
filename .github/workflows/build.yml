@@ -31,3 +31,4 @@ jobs:
         with:
           database: hypershield_test
       - run: ADAPTER=mysql2 bundle exec rake test
+      - run: ADAPTER=trilogy bundle exec rake test

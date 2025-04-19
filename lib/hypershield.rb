@@ -104,7 +104,7 @@ module Hypershield
     end
 
     def mysql?
-      adapter_name.match?(/mysql/i)
+      adapter_name.match?(/mysql|trilogy/i)
     end
 
     def tables(schema = nil)
