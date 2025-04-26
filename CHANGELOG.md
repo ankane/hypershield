@@ -1,4 +1,4 @@
-## 0.5.1 (unreleased)
+## 0.5.1 (2025-04-26)
 
 - Added support for Trilogy
 
