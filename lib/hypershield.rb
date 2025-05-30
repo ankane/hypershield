@@ -119,7 +119,7 @@ module Hypershield
           end
       end
 
-      query = <<-SQL
+      query = <<~SQL
         SELECT
           table_name,
           column_name,
