@@ -128,8 +128,7 @@ module Hypershield
         SELECT
           table_name,
           column_name,
-          ordinal_position,
-          data_type
+          ordinal_position
         FROM
           information_schema.columns
         WHERE
@@ -142,8 +141,7 @@ module Hypershield
           SELECT
             c.relname AS table_name,
             a.attname AS column_name,
-            a.attnum AS ordinal_position,
-            format_type(a.atttypid, a.atttypmod) AS data_type
+            a.attnum AS ordinal_position
           FROM
             pg_attribute a
           INNER JOIN
