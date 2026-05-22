@@ -10,9 +10,10 @@ require_relative "hypershield/engine" if defined?(Rails)
 
 module Hypershield
   class << self
-    attr_accessor :enabled, :log_sql, :schemas
+    attr_accessor :enabled, :materialized_views, :log_sql, :schemas
   end
   self.enabled = true
+  self.materialized_views = false
   self.log_sql = false
   self.schemas = {
     hypershield: {
@@ -107,6 +108,10 @@ module Hypershield
       adapter_name.match?(/mysql|trilogy/i)
     end
 
+    def postgresql?
+      adapter_name.match?(/postg/i)
+    end
+
     def tables(schema = nil)
       if schema
         schema = quote(schema)
@@ -130,6 +135,29 @@ module Hypershield
         WHERE
           table_schema = #{schema}
       SQL
+
+      if materialized_views && postgresql?
+        query += <<~SQL
+          UNION ALL
+          SELECT
+            c.relname AS table_name,
+            a.attname AS column_name,
+            a.attnum AS ordinal_position,
+            format_type(a.atttypid, a.atttypmod) AS data_type
+          FROM
+            pg_attribute a
+          INNER JOIN
+            pg_class c ON a.attrelid = c.oid
+          INNER JOIN
+            pg_namespace n ON c.relnamespace = n.oid
+          WHERE
+            n.nspname = #{schema} AND
+            a.attnum > 0 AND
+            NOT a.attisdropped AND
+            c.relkind = 'm' AND
+            has_column_privilege(c.oid, a.attnum, 'SELECT')
+        SQL
+      end
 
       select_all(query.squish)
         .map { |c| c.transform_keys(&:downcase) }

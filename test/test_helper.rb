@@ -27,6 +27,10 @@ ActiveRecord::Schema.define do
     t.string :name
     t.string :encrypted_email
   end
+
+  if $adapter == "postgresql"
+    execute "CREATE MATERIALIZED VIEW users_matview AS SELECT *, id AS extra FROM users"
+  end
 end
 
 Hypershield.log_sql = true
