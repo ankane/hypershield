@@ -133,7 +133,7 @@ module Hypershield
         FROM
           information_schema.columns
         WHERE
-          table_schema = #{schema}
+          table_schema = %{schema}
       SQL
 
       if materialized_views && postgresql?
@@ -151,7 +151,7 @@ module Hypershield
           INNER JOIN
             pg_namespace n ON c.relnamespace = n.oid
           WHERE
-            n.nspname = #{schema} AND
+            n.nspname = %{schema} AND
             a.attnum > 0 AND
             NOT a.attisdropped AND
             c.relkind = 'm' AND
@@ -159,7 +159,7 @@ module Hypershield
         SQL
       end
 
-      select_all(query.squish)
+      select_all(query.squish % {schema: schema})
         .map { |c| c.transform_keys(&:downcase) }
         .group_by { |c| c["table_name"] }
         .map { |t, cs| [t, cs.sort_by { |c| c["ordinal_position"].to_i }.map { |c| c["column_name"] }] }
