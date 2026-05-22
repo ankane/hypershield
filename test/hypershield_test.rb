@@ -2,8 +2,8 @@ require_relative "test_helper"
 
 class HypershieldTest < Minitest::Test
   def setup
-    reset_schema
     super
+    reset_schema
   end
 
   def test_works
