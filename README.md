@@ -129,7 +129,7 @@ Enable or disable Hypershield in an environment
 Hypershield.enabled = Rails.env.production?
 ```
 
-Include materialized views for Postgres [unreleased]
+Include materialized views for Postgres
 
 ```ruby
 Hypershield.materialized_views = true
